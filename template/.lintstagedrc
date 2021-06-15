@@ -1,0 +1,11 @@
+{
+  "src/**/*.{ts,js}": [
+    "eslint --fix",
+    "prettier --write"
+  ],
+  "__tests__/**/*.{ts,js}": [
+    "eslint --fix",
+    "prettier --write",
+    "cross-env NODE_ENV=test jest --bail --findRelatedTests"
+  ]
+}
