@@ -49,11 +49,11 @@ To use this template, all you need to do is install the
 `hdntecnologiabr/react-chakra-template` and its peer dependencies:
 
 ```sh
-yarn create react-app myprojectname --template=hdn-react-chakra
+yarn create react-app myprojectname --template hdnchakra
 
 # or
 
-npm create-react-app myprojectname --template=hdn-react-chakra
+npx create-react-app myprojectname --template hdnchakranext
 ```
 
 ## Usage
@@ -61,7 +61,7 @@ npm create-react-app myprojectname --template=hdn-react-chakra
 To start using the template, please follow these steps:
 
 1. Open the project provided by
-   **hdntecnologiabr/react-chakra-template**.
+   **hdntecnologiabr/cra-template-hdnchakra**.
 
 ```sh
 cd myprojectname && yarn && code .
