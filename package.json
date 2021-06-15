@@ -1,6 +1,6 @@
 {
-  "name": "cra-template-hdnchakranext",
-  "version": "1.0.2",
+  "name": "template-hdnchakranext",
+  "version": "1.0.0",
   "private": false,
   "keywords": [
     "react",
@@ -11,14 +11,13 @@
     "hdn"
   ],
   "description": "HDN React with ChakraUI and NextJS template for CRA",
-  "main": "template.json",
-  "homepage": "https://github.com/hdntecnologiabr/cra-template-hdnchakranext#readme",
+  "homepage": "https://github.com/hdntecnologiabr/template-hdnchakranext#readme",
   "repository": {
     "type": "git",
-    "url": "https://github.com/hdntecnologiabr/cra-template-hdnchakranext"
+    "url": "https://github.com/hdntecnologiabr/template-hdnchakranext"
   },
   "bugs": {
-    "url": "https://github.com/hdntecnologiabr/cra-template-hdnchakranext/issues"
+    "url": "https://github.com/hdntecnologiabr/template-hdnchakranext/issues"
   },
   "license": "MIT",
   "scripts": {
@@ -55,9 +54,5 @@
     "eslint-plugin-react-hooks": "^4.2.0",
     "prettier": "^2.3.1",
     "typescript": "4.3.2"
-  },
-  "files": [
-    "template",
-    "template.json"
-  ]
+  }
 }
