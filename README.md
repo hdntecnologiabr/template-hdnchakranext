@@ -33,6 +33,9 @@ Latest version (v1) => https://documentacao-do-esqueleto.com
 
 ## Features 🚀
 
+- NextJS: Next.js gives you the best developer experience with all the features you need
+  for production: hybrid static & server rendering, TypeScript support, smart bundling,
+  route pre-fetching, and more. No config needed.
 - React Context: Context provides a way to pass data through the component tree without
   having to pass props down manually at every level.
 - Ease of Styling: Chakra UI contains a set of layout components like `Box` and
@@ -46,7 +49,7 @@ Latest version (v1) => https://documentacao-do-esqueleto.com
 ## Installing template
 
 To use this template, all you need to do is install the
-`hdntecnologiabr/react-chakra-template` and its peer dependencies:
+`hdntecnologiabr/template-hdnchakranext` and its peer dependencies:
 
 ```sh
 yarn create next-app myprojectname -e https://github.com/hdntecnologiabr/template-hdnchakranext

@@ -1,9 +1,18 @@
-import React, { createContext, useCallback, useContext, useState } from 'react';
+import React, {
+  createContext,
+  ReactNode,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from 'react';
 import { toast } from 'react-toastify';
 
-import api, { clearLocalStorage } from '~/services/api';
+import { setCookie, parseCookies, destroyCookie } from 'nookies';
 
-interface  IUser {
+import api from '~/services/api';
+
+interface IUser {
   name: string;
   email: string;
 }
@@ -14,7 +23,7 @@ interface AuthState {
 }
 
 interface SignInCredentials {
-  username: string;
+  email: string;
   password: string;
 }
 
@@ -25,39 +34,41 @@ interface AuthContextData {
   signOut(): void;
 }
 
+interface AuthProviderProps {
+  children: ReactNode;
+}
+
+const THIRTY_DAYS = 60 * 60 * 24 * 30;
+
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
-const AuthProvider: React.FC = ({ children }) => {
+function AuthProvider({ children }: AuthProviderProps) {
   const [loading, setLoading] = useState<boolean>(false);
-  const [data, setData] = useState<AuthState>(() => {
-    if (typeof window !== "undefined") {
-      const token = window.localStorage.getItem('@AppName:token');
-      const userStorage = window.localStorage.getItem('@AppName:user');
+  const [data, setData] = useState<AuthState>({} as AuthState);
 
-      if (token && userStorage) {
-        const user = JSON.parse(userStorage);
+  useEffect(() => {
+    const { 'appname.token': token } = parseCookies();
 
-        return {
-          token,
-          user,
-        };
-      }
+    if (token) {
+      api.get('/me').then(response => console.log('response', response));
     }
+  }, []);
 
-    return {} as AuthState;
-  });
-
-  const signIn = useCallback(async ({ username, password }) => {
+  const signIn = useCallback(async ({ email, password }) => {
     setLoading(true);
 
     try {
-      const userAuth = await api.post('/auth', { username, password });
-      const { token, user } = userAuth.data;
+      const response = await api.post('/auth', { email, password });
+      const { token, user } = response.data;
 
-      if (typeof window !== "undefined") {
-        window.localStorage.setItem('@AppName:token', token);
-        window.localStorage.setItem('@AppName:user', JSON.stringify(user));
-      }
+      setCookie(undefined, 'appname.token', token, {
+        maxAge: THIRTY_DAYS,
+        path: '/',
+      });
+      setCookie(undefined, 'appname.user', JSON.stringify(user), {
+        maxAge: THIRTY_DAYS,
+        path: '/',
+      });
 
       setData({ token, user });
       setLoading(false);
@@ -68,7 +79,8 @@ const AuthProvider: React.FC = ({ children }) => {
   }, []);
 
   const signOut = useCallback(() => {
-    clearLocalStorage();
+    destroyCookie(undefined, 'appname.token');
+    destroyCookie(undefined, 'appname.user');
 
     setData({} as AuthState);
   }, []);
@@ -85,7 +97,7 @@ const AuthProvider: React.FC = ({ children }) => {
       {children}
     </AuthContext.Provider>
   );
-};
+}
 
 function useAuth(): AuthContextData {
   const context = useContext(AuthContext);
