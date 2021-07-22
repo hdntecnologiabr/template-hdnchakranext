@@ -1,13 +1,16 @@
 import React, { ReactNode } from 'react';
 
 import { AuthProvider } from './AuthContext';
+import { SidebarDrawerProvider } from './sidebar';
 
-interface AppProviderProps {
+export type AppProviderProps = {
   children: ReactNode;
 };
 
 export function AppProvider({ children }: AppProviderProps) {
   return (
-    <AuthProvider>{children}</AuthProvider>
-  )
+    <AuthProvider>
+      <SidebarDrawerProvider>{children}</SidebarDrawerProvider>
+    </AuthProvider>
+  );
 }
